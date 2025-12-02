@@ -9,13 +9,17 @@ function FormCategoria() {
 
   const [categoria, setCategoria] = useState<Categoria>({
     id: undefined,
-    tipo: ""
+    nome: ""          // <-- NOME, não name
   });
 
-  // Carregar categoria se for edição
   async function carregarCategoria() {
     if (id) {
-      await buscar(`/categorias/${id}`, setCategoria);
+      await buscar(`/categorias/${id}`, (data: Categoria) => {
+        setCategoria({
+          id: data.id,
+          nome: data.nome       // <-- NOME vindo do backend
+        });
+      });
     }
   }
 
@@ -23,7 +27,6 @@ function FormCategoria() {
     carregarCategoria();
   }, [id]);
 
-  // Atualizar estado ao digitar
   function atualizarEstado(e: React.ChangeEvent<HTMLInputElement>) {
     setCategoria({
       ...categoria,
@@ -31,18 +34,15 @@ function FormCategoria() {
     });
   }
 
-  // Enviar formulário
   async function enviarFormulario(e: React.FormEvent) {
     e.preventDefault();
 
     try {
       if (id) {
-        // EDITAR
-        await atualizar(`/categorias/${id}`, categoria, setCategoria);
+        await atualizar(`/categorias/${id}`, categoria, () => {});
         alert("Categoria atualizada com sucesso!");
       } else {
-        // CADASTRAR
-        await cadastrar("/categorias", categoria, setCategoria);
+        await cadastrar("/categorias", categoria, () => {});
         alert("Categoria cadastrada com sucesso!");
       }
 
@@ -60,12 +60,12 @@ function FormCategoria() {
       </h2>
 
       <form onSubmit={enviarFormulario} className="flex flex-col gap-4">
+        <label className="font-semibold text-lg">Nome da categoria:</label>
 
-        <label className="font-semibold text-lg">Tipo da categoria:</label>
         <input
           type="text"
-          name="tipo"
-          value={categoria.tipo}
+          name="nome"               // <-- NOME
+          value={categoria.nome}    // <-- NOME
           onChange={atualizarEstado}
           className="border border-gray-300 p-2 rounded-md"
           placeholder="Digite o nome da categoria"

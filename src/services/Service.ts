@@ -1,34 +1,32 @@
 ﻿import axios from "axios";
 
+const proxy = "https://corsproxy.io/?";
+
+const apiBase = "https://farmacia-jk1x.onrender.com";
+
 export const api = axios.create({
-  baseURL: "https://farmacia-jk1x.onrender.com"
+  baseURL: proxy + apiBase
 });
 
-// GET (buscar lista)
+// GET
 export async function buscar(caminho: string, setDados: Function) {
   const resposta = await api.get(caminho);
   setDados(resposta.data);
 }
 
-// GET (buscar por id)
-export async function buscarPorId(caminho: string, setDados: Function) {
-  const resposta = await api.get(caminho);
-  setDados(resposta.data);
-}
-
-// POST (cadastrar)
+// POST
 export async function cadastrar(caminho: string, dados: any, setDados: Function) {
   const resposta = await api.post(caminho, dados);
   setDados(resposta.data);
 }
 
-// PUT (atualizar)
+// PUT
 export async function atualizar(caminho: string, dados: any, setDados: Function) {
   const resposta = await api.put(caminho, dados);
   setDados(resposta.data);
 }
 
-// DELETE (deletar)
+// DELETE
 export async function deletar(caminho: string) {
   await api.delete(caminho);
 }

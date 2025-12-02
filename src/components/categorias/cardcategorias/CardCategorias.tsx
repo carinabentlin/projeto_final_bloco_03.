@@ -9,7 +9,9 @@ function CardCategoria({ categoria }: Props) {
   return (
     <div className="border bg-white shadow-md rounded-lg p-4 flex flex-col justify-between">
       <div>
-        <h3 className="text-xl font-semibold text-[#146C60]">{categoria.tipo}</h3>
+        <h3 className="text-xl font-semibold text-[#146C60]">
+          {categoria.nome}
+        </h3>
       </div>
 
       <div className="flex justify-between mt-4">

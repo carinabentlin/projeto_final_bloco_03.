@@ -1,10 +1,7 @@
-﻿import type Categoria from "./Categoria";
+﻿import type Produto from "./Produto";
 
-export default interface Produto {
-  id: number | null;
-  nome: string;
-  foto: string;
-  descricao: string;
-  preco: number;
-  categoria: Categoria | null;
+export default interface Categoria {
+    id: number | undefined;
+    tipo: string;
+    produto?: Produto[];
 }

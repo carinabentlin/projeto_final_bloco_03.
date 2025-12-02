@@ -9,21 +9,28 @@ function DeletarCategoria() {
   const { id } = useParams<{ id: string }>();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [categoria, setCategoria] = useState<Categoria>({} as Categoria);
+  const [categoria, setCategoria] = useState<Categoria>({
+    id: undefined,
+    nome: ""               // 👈 garantir o campo correto
+  });
 
   async function buscarPorId(id: string) {
     try {
-      await buscar(`/categorias/${id}`, setCategoria);
+      await buscar(`/categorias/${id}`, (data: any) =>
+        setCategoria({
+          id: data.id,
+          nome: data.nome    // 👈 backend usa "nome"
+        })
+      );
     } catch (error) {
       alert("Categoria não encontrada!");
       console.error(error);
+      navigate("/categorias");
     }
   }
 
   useEffect(() => {
-    if (id) {
-      buscarPorId(id);
-    }
+    if (id) buscarPorId(id);
   }, [id]);
 
   async function deletarCategoria() {
@@ -54,7 +61,7 @@ function DeletarCategoria() {
         </header>
 
         <p className="h-full p-4 text-xl bg-white md:p-8 md:text-3xl">
-          {categoria.tipo}
+          {categoria.nome || "..."}   {/* 👈 corrigido */}
         </p>
 
         <div className="flex flex-row">
