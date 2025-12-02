@@ -6,9 +6,10 @@ export default function Navbar() {
       <div className="container flex justify-between items-center mx-4 text-lg">
 
         {/* LOGO */}
-        <Link to="/" className="text-2xl font-bold tracking-wide">
-          Farmácia On
-        </Link>
+       <Link to="/" className="text-2xl font-bold tracking-wide">
+  Farmácia On
+</Link>
+
 
         {/* MENU */}
         <div className="flex gap-6 font-medium">
