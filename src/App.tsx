@@ -10,23 +10,26 @@ import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
+
       <Navbar />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
+      {/* AQUI É O SEGREDO */}
+      <main className="flex-1">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
 
-        {/* CATEGORIAS */}
-        <Route path="/categorias" element={<ListarCategorias />} />
-        <Route path="/categorias/cadastrar" element={<FormCategoria />} />
-        <Route path="/categorias/editar/:id" element={<FormCategoria />} />
-        <Route path="/categorias/deletar/:id" element={<DeletarCategoria />} />
-
-      </Routes>
+          <Route path="/categorias" element={<ListarCategorias />} />
+          <Route path="/categorias/cadastrar" element={<FormCategoria />} />
+          <Route path="/categorias/editar/:id" element={<FormCategoria />} />
+          <Route path="/categorias/deletar/:id" element={<DeletarCategoria />} />
+        </Routes>
+      </main>
 
       <Footer />
-    </>
+
+    </div>
   );
 }
 

@@ -9,7 +9,7 @@ function FormCategoria() {
 
   const [categoria, setCategoria] = useState<Categoria>({
     id: undefined,
-    nome: ""          // <-- NOME, não name
+    nome: "" 
   });
 
   async function carregarCategoria() {
@@ -17,7 +17,7 @@ function FormCategoria() {
       await buscar(`/categorias/${id}`, (data: Categoria) => {
         setCategoria({
           id: data.id,
-          nome: data.nome       // <-- NOME vindo do backend
+          nome: data.nome
         });
       });
     }
@@ -39,7 +39,15 @@ function FormCategoria() {
 
     try {
       if (id) {
-        await atualizar(`/categorias/${id}`, categoria, () => {});
+        // PUT CORRETO SEM ID NA URL
+        await atualizar(
+          {
+            id: Number(id),
+            nome: categoria.nome
+          },
+          () => {}
+        );
+
         alert("Categoria atualizada com sucesso!");
       } else {
         await cadastrar("/categorias", categoria, () => {});
@@ -64,8 +72,8 @@ function FormCategoria() {
 
         <input
           type="text"
-          name="nome"               // <-- NOME
-          value={categoria.nome}    // <-- NOME
+          name="nome"
+          value={categoria.nome}
           onChange={atualizarEstado}
           className="border border-gray-300 p-2 rounded-md"
           placeholder="Digite o nome da categoria"

@@ -1,11 +1,10 @@
 ﻿import axios from "axios";
 
 const proxy = "https://corsproxy.io/?";
-
 const apiBase = "https://farmacia-jk1x.onrender.com";
 
 export const api = axios.create({
-  baseURL: proxy + apiBase
+  baseURL: proxy + apiBase,
 });
 
 // GET
@@ -20,9 +19,9 @@ export async function cadastrar(caminho: string, dados: any, setDados: Function)
   setDados(resposta.data);
 }
 
-// PUT
-export async function atualizar(caminho: string, dados: any, setDados: Function) {
-  const resposta = await api.put(caminho, dados);
+// PUT (SEM ID NA URL — conforme o Swagger pede)
+export async function atualizar(dados: any, setDados: Function) {
+  const resposta = await api.put("/categorias", dados);
   setDados(resposta.data);
 }
 
