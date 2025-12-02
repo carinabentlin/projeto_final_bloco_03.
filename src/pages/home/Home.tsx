@@ -1,4 +1,6 @@
-﻿function Home() {
+﻿import Carrossel from "../../components/carrossel/Carrossel";
+
+function Home() {
   return (
     <>
       <div className="bg-[#2CA6A6] flex justify-center py-10 md:py-20">
@@ -26,6 +28,10 @@
 
         </div>
       </div>
+	   {/* CARROSSEL  */}
+      <section className="bg-[#2CA6A6] ">
+        <Carrossel />
+      </section>
     </>
   );
 }
